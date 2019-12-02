@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="widget_date" name="My widget in tree" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script src="/szoms_gaa/static/js/tree/tree_date.js"></script>
+            </xpath>
+        </template>
+        <template id="tree_charts" name="My tree chart" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script src="/szoms_gaa/static/js/tree/tree_extend.js"></script>
+                <script src="/szoms_gaa/static/js/table/Table.js"></script>
+                <script src="/szoms_gaa/static/js/charts/echarts.js"></script>
+                <script src="/szoms_gaa/static/js/charts/macarons.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

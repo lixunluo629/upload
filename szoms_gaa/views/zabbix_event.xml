@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zabbix_event_list" model="ir.ui.view">
+        <field name="name">zabbix event list</field>
+        <field name="model">zabbix.event</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="device"/>
+                <field name="name"/>
+                <field name="severity"/>
+                <field name="clock" widget="tree_date"/>
+                <field name="acknowledged"/>
+            </tree>
+        </field>
+    </record>
+    <record id="zabbix_event_form" model="ir.ui.view">
+        <field name="name">zabbix event form</field>
+        <field name="model">zabbix.event</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!--<button name="sync" string="触发事件" type="object"/>-->
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="source"/>
+                            <field name="clock" widget="tree_date"/>
+                            <field name="objectid"/>
+                            <field name="device"/>
+                        </group>
+                        <group>
+                            <field name="r_event"/>
+                            <field name="severity"/>
+                            <field name="object"/>
+                            <field name="acknowledged"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="zabbix_event_action" model="ir.actions.act_window">
+        <field name="name">zabbix event action</field>
+        <field name="res_model">zabbix.event</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="zabbix_action_server_sync" model="ir.actions.server">
+            <field name="name">同步历史事件</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_zabbix_event"></field>
+            <field name="state">code</field>
+            <field name="code">action = env['zabbix.event'].sync_from_remote_confirm()</field>
+    </record>
+
+    <record id="zabbix_action_server_cron" model="ir.actions.server">
+            <field name="name">定时获取告警</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_zabbix_trigger"></field>
+            <field name="state">code</field>
+            <field name="code">action = env['zabbix.trigger'].open_trigger()</field>
+    </record>
+
+      <record id="zabbix_event_charts_action" model="ir.actions.act_window">
+        <field name="name">zabbix event  charts action </field>
+        <field name="res_model">zabbix.event_charts</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <menuitem name="事件" id="zabbix_menu_event_root" action="zabbix_event_action" parent="zabbix_menu_root"/>
+    <menuitem name="历史事件" id="zabbix_menu_event" action="zabbix_event_action" parent="zabbix_menu_event_root"/>
+    <menuitem name="同步历史事件" id="zabbix_menu_sync" action="zabbix_action_server_sync" parent="zabbix_menu_event_root"/>
+    <menuitem name="定时获取告警" id="zabbix_menu_cron" action="zabbix_action_server_cron" parent="zabbix_menu_event_root"/>
+    <menuitem name="告警统计" id="zabbix_menu_event_charts" action="zabbix_event_charts_action" parent="zabbix_menu_root"/>
+
+</odoo>

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_zabbix_trigger,zabbix.trigger,model_zabbix_trigger,,1,1,1,1
+access_zabbix_event,zabbix.event,model_zabbix_event,,1,1,1,1
+access_zabbix_ensure,zabbix.ensure,model_zabbix_ensure,,1,1,1,1
+access_zabbix_confirm,zabbix.confirm,model_zabbix_confirm,,1,1,1,1
+
+access_zabbix_alarm,zabbix.alarm,model_zabbix_alarm,,1,1,1,1
+access_zabbix_alarmevent,zabbix.alarmevent,model_alarm_event,,1,1,1,1
+
+zabbix_event_charts,zabbix.event_charts,model_zabbix_event_charts,,1,1,1,1
